@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <style>
+    	.col-centered{
+    		float: none;
+    		margin: 0 auto;
+    	}
+    </style>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+    	$(document).ready(function(){
+    		$("#insert").click(function(){
+	    		var messagedetails = {
+			    	name : $("#name").val(),
+			    	message : $("#message").val()
+	    	    };
+	    		$.ajax({
+			      type: "POST",
+			      url: "/message",
+			      contentType: "application/json; charset=UTF-8",
+			      dataType: 'json',
+			      data: JSON.stringify(messagedetails),
+			      crossDomain : true,
+			      success: function( d ) {
+			         console.log(d); 
+			      },error: function(err){
+			      	 $("#name").val("");
+			    	 $("#message").val("");
+			    	 alert('message sent');
+			      }
+			    });
+		    });
+    	});
+    </script>
+  </head>
+  <body>
+  <div class="main">
+	<div class="container">
+	  	<div class="row">
+		  	<div class="col-md-6 col-md-offset-3">      
+	          <div class="well"> 
+			    <form>
+				  <div class="form-group">
+				  	<label for="name">Recipient Name</label>
+				    <input type="text" class="form-control" id="name" placeholder="name">
+				    <label for="message">Message</label>
+				    <input type="text" class="form-control" id="message" placeholder="message">
+				  </div>
+				  <button id="insert" type="button" class="btn btn-default">Send</button>
+				</form>
+			  </div>
+			</div>
+		</div>
+	</div>
+  </div>
+  </body>
+</html>
